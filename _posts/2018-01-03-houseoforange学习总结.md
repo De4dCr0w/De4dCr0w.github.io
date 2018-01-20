@@ -2,6 +2,8 @@
 
 本篇总结以理解知识点为主，参考示例代码（https://github.com/jkrshnmenon/scripts/blob/master/Heap/house_of_orange.c）
 
+<!-- more -->
+
 ### 0x00 修改top_chunk的size
 
 > top = (size_t *) ( (char *) p1 + 0x400 - 16);  
