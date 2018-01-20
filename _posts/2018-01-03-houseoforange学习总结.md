@@ -1,4 +1,10 @@
-# house-of-orange 学习总结
+---
+layout: post
+title:  "house-of-orange 学习总结"
+date:   2018-01-03 10:30:00
+categories: 堆利用
+tags: [pwn]
+---
 
 本篇总结以理解知识点为主，参考示例代码（https://github.com/jkrshnmenon/scripts/blob/master/Heap/house_of_orange.c）
 
