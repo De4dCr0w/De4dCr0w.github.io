@@ -38,9 +38,7 @@ permalink: /:categories/:title.html
 social_media:
   github_url: https://github.com/De4dCr0w
   weibo_url: https://weibo.com/3252939364
-  zhihu_url: https://www.zhihu.com/people/null
   twitter_url: https://twitter.com/1909675781Bry
-  lofter_url: null
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
