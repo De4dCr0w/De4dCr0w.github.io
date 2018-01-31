@@ -15,7 +15,7 @@ tags: [pwn]
 > top = (size_t *) ( (char *) p1 + 0x400 - 16);  
 > top[1] = 0xc01;//修改top_chunk的size
 
-![heap_size](./image/heap_size.jpg)
+![heap_size](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/heap_size.jpg)
 
 但是不能随意修改，sysmalloc中对该值进行了验证：
 ```
@@ -38,7 +38,7 @@ assert ((old_top == initial_top (av) && old_size == 0) ||
 
 >  p2 = malloc(0x1000);
 
-![malloc_1000](./image/malloc_1000.jpg)
+![malloc_1000](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/malloc_1000.jpg)
 
 如果要触发sysmalloc中_int_free，那么本次申请的堆大小也不能超过mp_.mmap_threshold，因为代码中也会根据请求值来做出不同的处理。
 
@@ -53,27 +53,27 @@ assert ((old_top == initial_top (av) && old_size == 0) ||
 
 攻击之前的内存布局：
 
-![before_attack](./image/before_attack.jpg)
+![before_attack](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/before_attack.jpg)
 
 #### 攻击过程
 
 因为top_chunk卸下来后变成unsorted_bin,只能通过main_arena+88的地址来覆盖_IO_list_all(通过将_IO_list_all-0x10的地址放置在bk中——unsorted bin攻击)
 
-![image1](./image/unsortedbin.jpg)
+![image1](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/unsortedbin.jpg)
 
 所以此时_IO_FILE为main_arena+88的地址，由于main_arena不能完全被控制，该_IO_FILE对象的数据基本不能用，要靠chain字段来转移到下一个_IO_FILE
 
-![image2](./image/io_file.jpg)
+![image2](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/io_file.jpg)
 
 chain字段的偏移为0x68，所以要将(main_arena+88)+0x68=(main_arena+192)的位置覆盖成top的地址，这样就会把top当成下一个_IO_FILE，而top又是我们可控的地方，在top里伪造虚表，并覆盖伪造虚表里的overflow函数地址为system地址。
 如何将main_arena+192的地址覆盖成top的地址？
 将chunk的大小改成0x61
 
-![image3](./image/small[10].jpg)
+![image3](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/small[10].jpg)
 
 main_arena的结构：
 
-![image4](./image/malloc_state.jpg)
+![image4](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/malloc_state.jpg)
 
 可以推算出main_arena+192的位置为bin[10]的位置，但是chunk大小改为0x61为啥会分配在bin[10]呢？
 
@@ -110,7 +110,7 @@ bck->fd = victim;
 
 从触发异常到执行攻击代码的路径如下：
 
-![image5](./image/path.jpg)
+![image5](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/path.jpg)
 
 ```
 int
@@ -157,26 +157,26 @@ _IO_flush_all_lockp (int do_lock)
 ```
 攻击后的内存布局：
 
-![malloc_0x60](./image/malloc_0x60.jpg)
+![malloc_0x60](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/malloc_0x60.jpg)
 
 为了执行_IO_OVERFLOW,需要满足之前的判断：
 - fp->_mode <= 0不成立，所以fp->_mode > 0
 - _IO_vtable_offset (fp) == 0
 - fp->_wide_data->_IO_write_ptr > fp->_wide_data->_IO_write_base
 
-![io_list_all](./image/io_list_all.jpg) 
+![io_list_all](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/io_list_all.jpg) 
 
-![_wide_data](./image/_wide_data0.jpg)
+![_wide_data](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/_wide_data0.jpg)
 
-![_wide_data](./image/_wide_data.jpg)
+![_wide_data](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/_wide_data.jpg)
 
 最后，我们将vtable的值改写成我们构造的vtable起始地址，虚表的结构如下：
 
-![io_jump_t](./image/io_jump_t.jpg)
+![io_jump_t](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/io_jump_t.jpg)
 
 伪造的情况如下：
 
-![vtable](./image/vtable.jpg)
+![vtable](https://raw.githubusercontent.com/De4dCr0w/De4dCr0w.github.io/master/image/vtable.jpg)
 
 之后调用_IO_OVERFLOW就会调用填充的system函数。
 
