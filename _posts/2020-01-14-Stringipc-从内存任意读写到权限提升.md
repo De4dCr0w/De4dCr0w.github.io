@@ -14,6 +14,8 @@ author: 'De4dCr0w'
 
 ---
 
+<!-- more -->
+
 ### 漏洞分析
 
 漏洞点在于realloc函数：
