@@ -1,3 +1,21 @@
+---
+
+layout: post
+
+title: 'Safe-Linking机制分析'
+
+date: '2020-06-04'
+
+header-img: "img/home-bg.jpg"
+
+tags:
+     - 学习笔记  
+author: 'De4dCr0w'
+
+---
+
+<!-- more -->
+
 ### 环境搭建
 
 下载glibc引入Safe-Linking机制版本：
