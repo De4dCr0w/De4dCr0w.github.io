@@ -20,7 +20,7 @@ author: 'De4dCr0w'
 
 从small bin 中unlink出一个small chunk时，会做完整性检查：
 
-![img](D:\github\De4dCr0w.github.io\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\1.png)
+![img](..\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\1.png)
 
 ```c
 // 获取 small bin 中倒数第二个 chunk 。
@@ -37,7 +37,7 @@ bck->fd = bin;
 
 将small bin中剩余的chunk unlink到tcache bin中，不会做检查
 
-![img](D:\github\De4dCr0w.github.io\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\2.png)
+![img](..\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\2.png)
 
 ```c
 #if USE_TCACHE //如果程序启用了Tcache
@@ -98,7 +98,7 @@ bck->fd = bin;
 
 以BUUOJ-2020 新春红包题-3为例，题目中使用calloc函数分配堆块，该函数不会从tcache中获取。题目中有一个后门函数，会比较第一个堆块的某个地址与0x7F0000000000的大小，如果大于就会调用read函数获取输入，这里存在栈溢出漏洞，并且没有canary校验。但是这里one_gadget的条件都不符合，所以需要自己构造rop链：通过open函数打开flag文件，之后用read函数将文件内容读到堆中的某个地址，最后通过write函数将堆中地址上的内容输出，获取flag。
 
-![img](D:\github\De4dCr0w.github.io\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\8.png)
+![img](..\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\8.png)
 
 ### exp代码及分析
 
@@ -229,23 +229,23 @@ if __name__=='__main__':
 
 [1] :
 
-![img](D:\github\De4dCr0w.github.io\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\3.png)
+![img](..\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\3.png)
 
 [2] :
 
-![img](D:\github\De4dCr0w.github.io\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\4.png)
+![img](..\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\4.png)
 
 先分配出small bin 1
 
 [3] :
 
-![img](D:\github\De4dCr0w.github.io\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\5.png)
+![img](..\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\5.png)
 
 此时small bin 2的bk已经修改成目标地址了
 
 [4]:
 
-![img](D:\github\De4dCr0w.github.io\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\7.png)
+![img](..\image\2020-07-20-Tcache-Stashing-Unlink-Attack利用思路\7.png)
 
 在目标地址中写入bin地址，上图为unlink 到tcache的过程。
 
