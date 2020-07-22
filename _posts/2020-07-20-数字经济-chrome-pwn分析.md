@@ -20,13 +20,13 @@ author: 'De4dCr0w'
 
 （1）运行题目中的chrome，在地址栏中输入：chrome://version，获取v8的版本为7.7.2
 
-![image-20200720165356778](D:\github\De4dCr0w.github.io\image\2020-07-20-数字经济-chrome-pwn分析\1.png)
+![image-20200720165356778](..\image\2020-07-20-数字经济-chrome-pwn分析\1.png)
 
 
 
 （2）在https://chromium.googlesource.com/v8/v8/+refs 根据v8版本号获取commit id，https://chromium.googlesource.com/v8/v8/+/refs/tags/7.7.2
 
-![image-20200720170053192](D:\github\De4dCr0w.github.io\image\2020-07-20-数字经济-chrome-pwn分析\2.png)
+![image-20200720170053192](..\image\2020-07-20-数字经济-chrome-pwn分析\2.png)
 
 （3）切换到漏洞版本，进行编译：
 
@@ -129,7 +129,7 @@ index e7542dcd6b..059b54731b 100644
 
 该题目漏洞在于如果传入参数value是一个对象时，v8会尝试将对象转化成数字而对回调函数valueOf或toString进行调用。过程和顺序如下图所示：
 
-![img](D:\github\De4dCr0w.github.io\image\2020-07-20-数字经济-chrome-pwn分析\webp)
+![img](..\image\2020-07-20-数字经济-chrome-pwn分析\webp)
 
 ### 利用过程
 
@@ -153,7 +153,7 @@ console.log("[+] float_victim(OOBARR) array length is changed to:"+float_victim.
 
 float_array数组的length已经被修改成了1083179008：
 
-![image-20200721170836619](D:\github\De4dCr0w.github.io\image\2020-07-20-数字经济-chrome-pwn分析\4.png)
+![image-20200721170836619](..\image\2020-07-20-数字经济-chrome-pwn分析\4.png)
 
 现在已经可以对float_array数组这一大块内存进行任意读写了。
 
@@ -430,7 +430,7 @@ wasm_function();
 
 运行效果图：
 
-![image-20200721162202812](D:\github\De4dCr0w.github.io\image\2020-07-20-数字经济-chrome-pwn分析\3.png)
+![image-20200721162202812](..\image\2020-07-20-数字经济-chrome-pwn分析\3.png)
 
 
 
