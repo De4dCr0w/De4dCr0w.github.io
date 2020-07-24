@@ -2,7 +2,7 @@
 
 layout: post
 
-title: 'Plaid CTF's roll a d8分析'
+title: 'Plaid CTFs roll a d8分析'
 
 date: '2020-07-21'
 
@@ -131,7 +131,7 @@ oobArray[oobArray.length - 1] = 0x41414141;
 ```
 在编译成 x64.debug的d8运行结果如下：
 
-![image-20200723171428842](D:\github\De4dCr0w.github.io\image\2020-07-21-Plaid-CTF's-roll-a-d8分析\1.png)
+![image-20200723171428842](..\image\2020-07-21-Plaid-CTF's-roll-a-d8分析\1.png)
 
 经过Array.from函数处理后，oobArray.length从0变成了counter累加的结果：8224。之后对oobArray数组造成了越界访问。
 
@@ -697,7 +697,7 @@ wasm_function();
 
 利用效果图：
 
-![image-20200724121451080](D:\github\De4dCr0w.github.io\image\2020-07-21-Plaid-CTF's-roll-a-d8分析\2.png)
+![image-20200724121451080](..\image\2020-07-21-Plaid-CTF's-roll-a-d8分析\2.png)
 
 ## 参考链接
 
