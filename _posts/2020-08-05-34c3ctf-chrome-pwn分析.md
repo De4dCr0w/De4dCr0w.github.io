@@ -183,7 +183,7 @@ victim.offset16 = {};
 
 覆盖成功后的内存布局如下：
 
-![image-20200806120232778](..\_posts\image\5.png)
+![image-20200806120232778](..\image\2020-08-05-34c3ctf-chrome-pwn分析\5.png)
 
 从图中可以看到，【2】处的o.b已经被覆盖成victim对象的地址，【3】处的value已经变成victim对象的properties。
 
