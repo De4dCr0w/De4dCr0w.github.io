@@ -177,7 +177,7 @@ console.log(x)
 
 （3）和starctf2019-v8-oob类似，构造fake_array和faked_object，此时可以通过fake_array[2] 修改faked_object->elements，通过fake_array[3] 修改faked_object->length。所以将faked_object->elements填充为fake_array，faked_object->length改成0x2000，就可以对faked_object进行越界读写。
 
-![img](..\_posts\image\5-1597719508911.png)
+![img](..\image\2020-08-14-qwb2019-final-groupupjs分析\5.png)
 
 （4） 在fake_array后面布置data_buf和obj，根据mark查找wasm_function对象的地址，根据data_buf的大小查找data_buf-> backing_store，用于构造任意读写原语。
 
