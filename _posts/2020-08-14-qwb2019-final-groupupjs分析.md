@@ -30,7 +30,7 @@ gclient sync
 
 ### IR优化的流程图
 
-![img](D:\github\De4dCr0w.github.io\image\2020-08-14-qwb2019-final-groupupjs分析\6.png)
+![img](..\image\2020-08-14-qwb2019-final-groupupjs分析\6.png)
 
 
 
@@ -76,13 +76,13 @@ console.log(x)
 
 simplified lowering 阶段：
 
-![image-20200818110837700](D:\github\De4dCr0w.github.io\image\2020-08-14-qwb2019-final-groupupjs分析\1.png)
+![image-20200818110837700](..\image\2020-08-14-qwb2019-final-groupupjs分析\1.png)
 
 
 
 Effect  Linearization阶段：
 
-![image-20200818110352706](D:\github\De4dCr0w.github.io\image\2020-08-14-qwb2019-final-groupupjs分析\2.png)
+![image-20200818110352706](..\image\2020-08-14-qwb2019-final-groupupjs分析\2.png)
 
 
 
@@ -106,7 +106,7 @@ console.log(x)
 
 LoadElimination Phase阶段：
 
-![image-20200817104808240](D:\github\De4dCr0w.github.io\image\2020-08-14-qwb2019-final-groupupjs分析\3.png)
+![image-20200817104808240](..\image\2020-08-14-qwb2019-final-groupupjs分析\3.png)
 
 所以为了避免常数折叠，需要赋予CheckBound一个不确定的范围。
 
@@ -177,7 +177,7 @@ console.log(x)
 
 （3）和starctf2019-v8-oob类似，构造fake_array和faked_object，此时可以通过fake_array[2] 修改faked_object->elements，通过fake_array[3] 修改faked_object->length。所以将faked_object->elements填充为fake_array，faked_object->length改成0x2000，就可以对faked_object进行越界读写。
 
-![img](D:\github\De4dCr0w.github.io\_posts\image\5-1597719508911.png)
+![img](..\_posts\image\5-1597719508911.png)
 
 （4） 在fake_array后面布置data_buf和obj，根据mark查找wasm_function对象的地址，根据data_buf的大小查找data_buf-> backing_store，用于构造任意读写原语。
 
@@ -387,7 +387,7 @@ wasm_function();
 
 运行效果图：
 
-![image-20200818101431155](D:\github\De4dCr0w.github.io\image\2020-08-14-qwb2019-final-groupupjs分析\4.png)
+![image-20200818101431155](..\image\2020-08-14-qwb2019-final-groupupjs分析\4.png)
 
 
 
