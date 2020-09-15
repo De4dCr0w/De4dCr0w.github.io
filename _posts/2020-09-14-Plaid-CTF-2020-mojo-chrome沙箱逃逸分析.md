@@ -160,7 +160,7 @@ if (!render_frame_host_->IsRenderFrameLive()) {
 
 在gdb中对content::PlaidStoreImpl::Create 下断点，找到其地址，之后用x/i 查看汇编代码：
 
-![image-20200914170028800](D:\github\De4dCr0w.github.io\image\2020-09-14-Plaid-CTF-2020-mojo-chrome沙箱逃逸分析\1.png)
+![image-20200914170028800](..\image\2020-09-14-Plaid-CTF-2020-mojo-chrome沙箱逃逸分析\1.png)
 
 可以看到PlaidStore 对象的大小为0x28，地址保存在rax中，rcx为vtable地址，保存在0偏移处。rbx为render_frame_host_地址，保存在+0x8偏移处。所以我们通过`p.storeData("yeet"+i,new Uint8Array(0x28).fill(0x41));`申请0x28字节大小的数组，并且和PlaidStore 一起申请，使它们在内存中相邻，之后就可以通过p.GetData泄露vtable 和 render_frame_host _地址。泄露出来的vtable地址减去偏移就可以得到chrome加载的基地址。 
 
@@ -168,7 +168,7 @@ if (!render_frame_host_->IsRenderFrameLive()) {
 
 在content::RenderFrameHostFactory::Create 下断点，获得地址之后查看相关代码，可以找到RenderFrameHost 对象的大小为0xc28，之后堆喷0xc28 大小的 ArrayBuffer，重新获得被释放的对象。
 
-![image-20200915150352902](D:\github\De4dCr0w.github.io\image\2020-09-14-Plaid-CTF-2020-mojo-chrome沙箱逃逸分析\3.png)
+![image-20200915150352902](..\image\2020-09-14-Plaid-CTF-2020-mojo-chrome沙箱逃逸分析\3.png)
 
 render_frame_host_->IsRenderFrameLive() 调用的反汇编代码如下：
 
@@ -394,7 +394,7 @@ exp 代码：
 
 运行效果示意图：
 
-![image-20200915141615676](D:\github\De4dCr0w.github.io\image\2020-09-14-Plaid-CTF-2020-mojo-chrome沙箱逃逸分析\2.png)
+![image-20200915141615676](..\image\2020-09-14-Plaid-CTF-2020-mojo-chrome沙箱逃逸分析\2.png)
 
 
 
