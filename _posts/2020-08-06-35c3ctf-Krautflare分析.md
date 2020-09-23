@@ -26,10 +26,10 @@ author: 'De4dCr0w'
 
 Ubuntu下默认的apt里面的nodejs不好使，安装最新版的
 
-python-software-properties 有些情况下他可能会找不到，然后会提示你安装另一个包，如果是这样的话根据提示安装那个包就好了。
+python-software-properties 有些情况下他可能会找不到，然后会提示你安装另一个包，如果是这样的话根据提示安装那个包(software-properties-common)就好了。
 
 ```
-sudo apt-get install curl python-software-properties
+sudo apt-get install curl software-properties-common
 curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 sudo apt-get install nodejs
 
@@ -47,6 +47,13 @@ python -m SimpleHTTPServer 8000
 ```
 
 npm i 这一步报错，可能是切的支线有问题，换个支线，我是先换到了漏洞版本，后面还是报错，显示一些包404 not found，编辑package-lock.json，删除那些找不到的依赖包，运行npm i就会下载存在的依赖包，之后运行npm run-script build 就可以完成了。过程并没有网上搭建教程那么顺利。
+
+安装chrome：
+
+```
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+sudo apt install ./google-chrome-stable_current_amd64.deb
+```
 
 **（2）搭建题目环境**
 
